@@ -107,6 +107,13 @@ st.markdown("""
 # -----------------------------------------------------------
 # Sidebar: System Stats & Quick Actions
 # -----------------------------------------------------------
+import glob
+import os
+import streamlit as st
+from src.assistant import ask_assistant
+
+# ... (keep your page config and custom CSS as they are) ...
+
 with st.sidebar:
     st.markdown("### 🎛️ Terminal Engine")
     st.markdown(
@@ -132,18 +139,23 @@ with st.sidebar:
 
     st.divider()
     st.markdown("### 📁 Exported Research Briefs")
-    report_file = "NVDA_research_brief.md"
-    if os.path.exists(report_file):
-        with open(report_file, "r", encoding="utf-8") as f:
-            brief_content = f.read()
-        st.download_button(
-            label="⬇️ Download Latest Brief (.md)",
-            data=brief_content,
-            file_name=report_file,
-            mime="text/markdown",
-            use_container_width=True
-        )
-        st.caption(f"Cached file: `{report_file}`")
+    
+    # Dynamically find ANY generated research brief on disk
+    exported_files = glob.glob("*_research_brief.md")
+    
+    if exported_files:
+        for filepath in exported_files:
+            filename = os.path.basename(filepath)
+            with open(filepath, "r", encoding="utf-8") as f:
+                content = f.read()
+            st.download_button(
+                label=f"⬇️ Download {filename}",
+                data=content,
+                file_name=filename,
+                mime="text/markdown",
+                use_container_width=True,
+                key=f"dl_{filename}"
+            )
     else:
         st.info("Ask the agent to export a report to generate a download file.")
 
