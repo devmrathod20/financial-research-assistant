@@ -7,37 +7,41 @@
 [![Streamlit App](https://img.shields.io/badge/Streamlit-App_Interface-FF4B4B.svg?style=flat&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Package Manager: uv](https://img.shields.io/badge/uv-Fast_Packaging-DE5FE9.svg?style=flat)](https://github.com/astral-sh/uv)
 
+---
+
+![AlphaTerminal Interface](assets/preview.png)
+
 An enterprise-grade, agentic financial analyst that pairs deterministic SEC-audited statements with qualitative web intelligence and mathematical simulation engines. Built to eliminate hallucination in equity research workflows.
 
 ---
 
 ## 🏛️ System Architecture
 
-                       ┌─────────────────────────┐
-                       │   Streamlit Web UI      │
-                       │  (app.py / Glassmorphic)│
-                       └────────────┬────────────┘
-                                    │ User Query
-                                    ▼
-                       ┌─────────────────────────┐
-                       │   LangChain v1 Agent    │
-                       │  (llama-3.1-8b-instant) │
-                       └────────────┬────────────┘
-                                    │ Tool Routing & State Management
-          ┌─────────────────────────┼─────────────────────────┐
-          ▼                         ▼                         ▼
-┌───────────────────┐     ┌───────────────────┐     ┌───────────────────┐
-│  yFinance SEC     │     │   Tavily Search   │     │  Compound Growth  │
-│  Grounding Tool   │     │ Qualitative News  │     │   Math Engine     │
-│ (Audited 10-Q/K)  │     │  & Market Trends  │     │ (Pydantic Schema) │
-└───────────────────┘     └───────────────────┘     └───────────────────┘
-         │                         │                         │
-         └─────────────────────────┼─────────────────────────┘
-                                   ▼
-                     ┌─────────────────────────┐
-                     │   File Export Engine    │
-                     │ (Markdown Brief Writer) │
-                     └─────────────────────────┘
+                           ┌─────────────────────────┐
+                           │   Streamlit Web UI      │
+                           │  (app.py / Glassmorphic)│
+                           └────────────┬────────────┘
+                                        │ User Query
+                                        ▼
+                           ┌─────────────────────────┐
+                           │   LangChain v1 Agent    │
+                           │  (llama-3.1-8b-instant) │
+                           └────────────┬────────────┘
+                                        │ Tool Routing & State Management
+              ┌─────────────────────────┼─────────────────────────┐
+              ▼                         ▼                         ▼
+    ┌───────────────────┐     ┌───────────────────┐     ┌───────────────────┐
+    │  yFinance SEC     │     │   Tavily Search   │     │  Compound Growth  │
+    │  Grounding Tool   │     │ Qualitative News  │     │   Math Engine     │
+    │ (Audited 10-Q/K)  │     │  & Market Trends  │     │ (Pydantic Schema) │
+    └───────────────────┘     └───────────────────┘     └───────────────────┘
+             │                         │                         │
+             └─────────────────────────┼─────────────────────────┘
+                                       ▼
+                         ┌─────────────────────────┐
+                         │   File Export Engine    │
+                         │ (Markdown Brief Writer) │
+                         └─────────────────────────┘
 
 ### Key Engineering Pillars
 - **Deterministic SEC Grounding (`get_quarterly_financials`):** Queries audited balance sheets and income statements directly via Yahoo Finance (`yfinance`), resolving hallucinated metrics common to web scrapers.
@@ -69,8 +73,9 @@ financial-research-assistant/
 ├── .streamlit/
 │   └── config.toml          # Custom dark terminal theme configuration
 ├── src/
-│   ├── __init__.py
-│   └── assistant.py         # Agent graph, tools, checkpointer, and execution logic
+|    └── financial_research_assistant/
+│        ├── __init__.py
+│        └── assistant.py         # Agent graph, tools, checkpointer, and execution logic
 ├── app.py                   # Streamlit web application interface
 ├── pyproject.toml           # Project dependencies managed via uv
 ├── requirements.txt         # Standard requirements export for cloud platforms
