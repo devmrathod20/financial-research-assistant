@@ -1,0 +1,26 @@
+[project]
+name = "financial-research-assistant"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=7.3.0",
+    "langchain>=1.4.2",
+    "langchain-community>=0.4.2",
+    "langchain-core>=1.6.3",
+    "langchain-groq>=1.1.3",
+    "langchain-ollama>=1.1.0",
+    "langchain-tavily>=0.2.18",
+    "langgraph>=1.2.11",
+    "python-dotenv>=1.2.3",
+    "streamlit>=1.64.0",
+    "yfinance>=1.7.0",
+]
+
+[project.scripts]
+financial-research-assistant = "financial_research_assistant:main"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
